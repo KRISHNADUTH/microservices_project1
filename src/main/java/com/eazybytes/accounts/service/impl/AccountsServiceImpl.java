@@ -29,6 +29,7 @@ public class AccountsServiceImpl implements IAccountService {
     private AccountsRepository accountsRepository;
     private CustomerRepository customerRepository;
 
+    // Steps to get values to Audit column - Step 5 - remove seting createdBy and createdAt in belo two methods.
     @Override
     public void createAccount(CustomerDto customerDto) {
         Customer customer = CustomerMapper.mapToCustomer(customerDto, new Customer());
@@ -37,8 +38,6 @@ public class AccountsServiceImpl implements IAccountService {
             throw new CustomerAlreadyExistsException("Customer already registered with given mobileNumber "
                     + customerDto.getMobileNumber());
         }
-        customer.setCreatedAt(LocalDateTime.now());
-        customer.setCreatedBy("Anonymous");
 
         Customer savedCustomer = customerRepository.save(customer);
         accountsRepository.save(createNewAccount(savedCustomer));
@@ -53,8 +52,6 @@ public class AccountsServiceImpl implements IAccountService {
         newAccount.setAccountType(AccountsConstants.SAVINGS);
         newAccount.setBranchAddress(AccountsConstants.ADDRESS);
 
-        newAccount.setCreatedAt(LocalDateTime.now());
-        newAccount.setCreatedBy("Anonymous");
         return newAccount;
     }
 
