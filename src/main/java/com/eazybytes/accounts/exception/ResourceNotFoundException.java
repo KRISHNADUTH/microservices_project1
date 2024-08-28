@@ -3,7 +3,8 @@ package com.eazybytes.accounts.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(value = HttpStatus.NOT_FOUND)
+@ResponseStatus(value = HttpStatus.NOT_FOUND) // If we havmn't used This annotation then the status will 500 internal
+                                              // error when this exception throws.
 public class ResourceNotFoundException extends RuntimeException{
     
     public ResourceNotFoundException(String resourceName, String fieldName, String fieldValue) {
